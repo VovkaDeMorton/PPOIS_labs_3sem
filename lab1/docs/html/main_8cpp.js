@@ -6,5 +6,7 @@ var main_8cpp =
     [ "handleShowBoard", "main_8cpp.html#a2f86e1b86f8c1546e5a5c4f5407647db", null ],
     [ "handleStatus", "main_8cpp.html#a6a18f50c2f2e1a3b7287296c56d84974", null ],
     [ "main", "main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
-    [ "printMenu", "main_8cpp.html#ab13e858612c64eeef73aff1d8a03945e", null ]
+    [ "printMenu", "main_8cpp.html#ab13e858612c64eeef73aff1d8a03945e", null ],
+    [ "runPostMachine", "main_8cpp.html#ab6c737dc8001aa9113f4d06848700179", null ],
+    [ "runTicTacToe", "main_8cpp.html#ace6dfa7cbba9a0c3a8ceb9244f85ffe6", null ]
 ];

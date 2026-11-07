@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tictactoe_0',['TicTacToe',['../class_tic_tac_toe.html',1,'']]]
+  ['postmachine_0',['PostMachine',['../class_post_machine.html',1,'']]]
 ];

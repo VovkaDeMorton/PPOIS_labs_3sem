@@ -9,6 +9,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_executable(lab1_app
     src/main.cpp
     src/TicTacToe.cpp
+    src/PostMachine.cpp      # <--- ДОБАВЛЕНО
 )
 
 # --- Подключение GoogleTest ---
@@ -17,7 +18,6 @@ FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
 )
-# Для Windows: предотвращает переопределение флагов компиляции
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
@@ -26,13 +26,13 @@ enable_testing()
 
 add_executable(lab1_tests
     tests/test_tictactoe.cpp
-    src/TicTacToe.cpp  # Подключаем наш класс, чтобы тестировать его
+    tests/test_postmachine.cpp  # <--- ДОБАВЛЕНО
+    src/TicTacToe.cpp
+    src/PostMachine.cpp         # <--- ДОБАВЛЕНО
 )
 
-# Линкуем GoogleTest
 target_link_libraries(lab1_tests GTest::gtest_main)
 
-# --- Включаем сбор покрытия (только для GCC) ---
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(lab1_tests PRIVATE --coverage)
     target_link_options(lab1_tests PRIVATE --coverage)

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7etictactoe_0',['~TicTacToe',['../class_tic_tac_toe.html#a5e9c4ed3279034d5530cc7b94a3e10e5',1,'TicTacToe']]]
+  ['write_0',['write',['../class_post_machine.html#a2ad24165b79d51f189af0dafd5570bba',1,'PostMachine']]]
 ];

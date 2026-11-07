@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xwins_0',['XWins',['../_tic_tac_toe_8h.html#a7899b65f1ea0f655e4bbf8d2a5714285a98169eec87866feb3dde5f8f50ee9bed',1,'TicTacToe.h']]]
+  ['write_0',['write',['../class_post_machine.html#a2ad24165b79d51f189af0dafd5570bba',1,'PostMachine']]]
 ];
