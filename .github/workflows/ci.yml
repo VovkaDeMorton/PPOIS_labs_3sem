@@ -1,0 +1,26 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ "main", "lab1" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y cmake g++ libgtest-dev
+
+    - name: Configure CMake
+      run: cmake -S lab1 -B lab1/build
+
+    - name: Build
+      run: cmake --build lab1/build
+
+    - name: Run Tests
+      run: cd lab1/build && ctest --output-on-failure
