@@ -191,3 +191,45 @@ TEST(TicTacToeTest, StreamInput) {
     EXPECT_EQ(game.getWinLength(), 3);
     EXPECT_EQ(game.getCell(0, 0), 'X');
 }
+
+// Тест 17: Оператор неравенства (!=) — непокрытая строка 171
+TEST(TicTacToeTest, OperatorInequality) {
+    TicTacToe game1;
+    TicTacToe game2;
+
+    EXPECT_FALSE(game1 != game2); // обе пустые -> равны, значит НЕ неравны
+
+    game1.makeMove(1, 1);
+    EXPECT_TRUE(game1 != game2);  // после хода игры различаются
+}
+
+// Тест 18: ход вне поля отклоняется (строки 87-88)
+TEST(TicTacToeTest, MoveOutOfBounds) {
+    TicTacToe game;
+    EXPECT_FALSE(game.makeMove(5, 5));
+    EXPECT_FALSE(game.makeMove(-1, 0));
+    EXPECT_EQ(game.getCurrentPlayer(), 'X'); // ход не перешёл
+}
+
+// Тест 19: ход в занятую клетку отклоняется (строки 90-91)
+TEST(TicTacToeTest, MoveIntoOccupiedCell) {
+    TicTacToe game;
+    EXPECT_TRUE(game.makeMove(0, 0));   // X
+    EXPECT_FALSE(game.makeMove(0, 0));  // та же клетка второй раз
+    EXPECT_EQ(game.getCell(0, 0), 'X');
+    EXPECT_EQ(game.getCurrentPlayer(), 'O'); // ход не перешёл обратно к X
+}
+
+// Тест 20: победа игрока O (строка 138)
+TEST(TicTacToeTest, OWins) {
+    TicTacToe game;
+    game.makeMove(0, 0); // X
+    game.makeMove(1, 0); // O
+    game.makeMove(2, 0); // X
+    game.makeMove(1, 1); // O
+    game.makeMove(0, 2); // X
+    game.makeMove(1, 2); // O — три в ряд по строке 1
+
+    EXPECT_TRUE(game.isGameOver());
+    EXPECT_EQ(game.getState(), GameState::OWins);
+}
