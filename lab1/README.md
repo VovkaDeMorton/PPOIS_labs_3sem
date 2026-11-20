@@ -35,3 +35,13 @@ cmake --build .
 ```bash
 ctest --output-on-failure
 ```
+
+### Генерация документа (Doxygen):
+```bash
+cd ..
+doxygen Doxyfile
+```
+Документация находится в папке docs/html/index.html.
+
+### Артефакты:
+Скомпилированный .exe файл прикреплен в разделе Releases на GitHub.
