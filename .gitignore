@@ -66,3 +66,25 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Code coverage (lcov / genhtml)
+*.gcda
+*.gcno
+*.gcov
+*coverage*.info
+coverage_report/
+coverage_final/
+*.gcov.html
+*.func.html
+*.func-sort-c.html
+index-sort-f.html
+index-sort-l.html
+
+# отчёты покрытия, случайно сгенерированные внутри исходников
+lab1/src/*.html
+lab1/tests/*.html
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store
