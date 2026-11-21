@@ -1,0 +1,62 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ "main", "lab1" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++ libgtest-dev lcov
+
+    - name: Configure CMake
+      run: cmake -S lab1 -B lab1/build
+
+    - name: Build
+      run: cmake --build lab1/build
+
+    - name: Run Tests
+      run: cd lab1/build && ctest --output-on-failure
+
+    - name: Coverage (console summary)
+      working-directory: lab1/build
+      run: |
+        lcov --capture --directory . --output-file coverage.info \
+          --ignore-errors mismatch,inconsistent,negative,unused,gcov,source,empty,format \
+          > lcov.log 2>&1 || { cat lcov.log; exit 1; }
+        lcov --remove coverage.info '*/_deps/*' '*/tests/*' '/usr/include/*' \
+          --output-file coverage_clean.info \
+          --ignore-errors mismatch,inconsistent,negative,unused,source,empty,format \
+          >> lcov.log 2>&1 || { cat lcov.log; exit 1; }
+        echo "Покрытие кода (GoogleTest):"
+        lcov --summary coverage_clean.info | tee coverage_summary.txt
+
+    - name: Coverage to job summary
+      run: |
+        {
+          echo "## Покрытие кода (GoogleTest)"
+          echo '```'
+          cat lab1/build/coverage_summary.txt
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Generate HTML coverage report
+      run: |
+        genhtml lab1/build/coverage_clean.info \
+          --output-directory lab1/build/coverage_final \
+          --ignore-errors mismatch,inconsistent,negative,unused,source,empty,format
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: lab1/build/coverage_final
