@@ -31,10 +31,13 @@ jobs:
       working-directory: lab1/build
       run: |
         lcov --capture --directory . --output-file coverage.info \
-          --ignore-errors mismatch,inconsistent,negative,unused,gcov,source,empty,format
+          --ignore-errors mismatch,inconsistent,negative,unused,gcov,source,empty,format \
+          > lcov.log 2>&1 || { cat lcov.log; exit 1; }
         lcov --remove coverage.info '*/_deps/*' '*/tests/*' '/usr/include/*' \
           --output-file coverage_clean.info \
-          --ignore-errors mismatch,inconsistent,negative,unused,source,empty,format
+          --ignore-errors mismatch,inconsistent,negative,unused,source,empty,format \
+          >> lcov.log 2>&1 || { cat lcov.log; exit 1; }
+        echo "Покрытие кода (GoogleTest):"
         lcov --summary coverage_clean.info | tee coverage_summary.txt
 
     - name: Coverage to job summary
